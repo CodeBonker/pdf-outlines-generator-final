@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  pdf_outline_extractor:
+    container_name: pdf_outline_extractor
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platform: linux/amd64
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+    working_dir: /app
+    command: ["python", "entrypoint.py"]
+    network_mode: "none"
+    stdin_open: false
+    tty: false
