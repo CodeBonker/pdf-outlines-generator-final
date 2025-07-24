@@ -259,6 +259,12 @@ This project is licensed under the MIT License.
 - [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) for OCR functionality
 - [pdf2image](https://github.com/Belval/pdf2image) for PDF to image conversion
 
+
+## 🔹 Note on Round 1B
+
+This repository currently contains only the Round 1A solution.  
+Round 1B will be added once the second stage is unlocked or instructions are provided.
+
 ---
 
 **Ready to extract PDF outlines! 📄✨**
