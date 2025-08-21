@@ -6,8 +6,11 @@ from ocr_fallback import ocr_extract
 from font_stats_analyzer import analyze_fonts, add_caps_ratio
 from outline_generator import generate_outline, extract_title
 
-INPUT_DIR = "/app/input"
-OUTPUT_DIR = "/app/output"
+import os
+
+INPUT_DIR = os.getenv("INPUT_DIR", "input")
+OUTPUT_DIR = os.getenv("OUTPUT_DIR", "output")
+
 
 def process_pdf(pdf_path, output_path):
     try:
@@ -15,7 +18,7 @@ def process_pdf(pdf_path, output_path):
         if not spans:
             raise ValueError("No spans extracted — fallback to OCR")
     except Exception as e:
-        print(f"[⚠️] Falling back to OCR for {pdf_path} due to: {e}")
+        print(f"Falling back to OCR for {pdf_path} due to: {e}")
         spans = ocr_extract(pdf_path)
 
     body_size, _ = analyze_fonts(spans)
@@ -30,7 +33,7 @@ def process_pdf(pdf_path, output_path):
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
-    print(f"[✅] Saved: {output_path}")
+    print(f"Saved: {output_path}")
 
 def main():
     if not os.path.exists(OUTPUT_DIR):
@@ -41,7 +44,7 @@ def main():
             pdf_path = os.path.join(INPUT_DIR, filename)
             json_filename = os.path.splitext(filename)[0] + ".json"
             output_path = os.path.join(OUTPUT_DIR, json_filename)
-            print(f"[📄] Processing: {filename}")
+            print(f"Processing: {filename}")
             process_pdf(pdf_path, output_path)
 
 if __name__ == "__main__":
